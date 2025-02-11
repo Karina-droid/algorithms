@@ -6,46 +6,6 @@
 
 #the recurrence - T(n) = 3T(n/2) + O(n), the solution - O(n^1.59)
 
-def make_equal_length(str1, str2):
-    """ given 2 strings of unequal length, adds leading 0s to the smaller one
-        returns the new length """
-    len1 = len(str1)
-    len2 = len(str2)
-    if len1 < len2:
-        for i in range(len2 - len1):
-            str1 = '0' + str1
-        return len2
-    elif len1 > len2:
-        for i in range(len1 - len2):
-            str2 = '0' + str2
-    return len1
-
-
-def add_bit_strings(first, second):
-    """adds two bit sequences and returns the addition"""
-    result = ""
-    length = make_equal_length(first, second)
-    carry = 0
-
-    #add all bits one by one
-    for i in range(length-1, -1, -1):
-        first_bit = first[i]
-        second_bit = second[i]
-        sum = (first_bit ^ second_bit ^ carry) + ord('0')
-        result = chr(sum) + result
-        carry = (first_bit & second_bit) | (first_bit & carry) | (second_bit & carry)
-
-    #if overflow, then add the leading 1
-    if carry:
-        result = '1' + result
-
-    return result
-
-
-def multiply_single_bit(a, b):
-    return int(a[0])*int(b[0])
-
-
 def multiply(X, Y):
     """multiplies two bit strings and returns the result as long integer"""
     n = max(len(X), len(Y))
